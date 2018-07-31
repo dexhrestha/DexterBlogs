@@ -1,19 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+{% extends 'music/base.html' %}
+
+{% block body %}
+<div class="main container-fluid">
 	<h1>Albums List</h1>
 	{% if all_albums %}
-	<ul>
+		<ul>
 		{% for album in all_albums %}
-		<li><a href="{%url 'music:detail' album.id %}">{{album.album_title}}</a></li>
+			<li>
+			<a href="{%url 'music:detail' album.id %}">{{album.album_title}}</a>
+			</li>
 		{%endfor%}
-		
-	</ul>
-	{% else %}
+		</ul>
+		{% else %}
 	<p>You don't have any albums</p>
 	{% endif %}
-</body>
-</html>
+</div>
+
+{% endblock %}

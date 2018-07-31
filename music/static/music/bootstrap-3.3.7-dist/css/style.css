@@ -1,0 +1,12 @@
+body{
+	font-family: Roboto;
+	margin: 0;
+}
+
+.navbar{
+	border-radius:0;
+}
+
+.main{
+	margin: 10px;
+}
