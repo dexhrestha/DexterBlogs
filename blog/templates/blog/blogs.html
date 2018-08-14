@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block body %}
+<h2>All blogs</h2>
+<div style="margin: 5px 10px">
+{% if all_blogs %}
+	{% for blog in all_blogs %}
+		<div class='blogs_list' style="box-shadow:5px 5px 5px grey;">
+			<h3><a href="{% url 'blog:blog' blog.id%}">{{blog.blog_title}}</a></h3>
+			<p>{{blog.author}}</p>
+			<p>{{blog.date}}</p>
+		</div>
+	{% endfor %}
+{%endif%}
+</div>
+{% endblock %}

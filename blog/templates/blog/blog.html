@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block body %}
+
+	{% if blog %}
+	<div>
+		<h2>{{blog.blog_title}}</h2>
+		<p>{{blog.author}}</p>
+		<p>{{blog.date}}</p>
+		<p>{{blog.category}}</p>
+		<img src="{{blog.media}}" style="width: 80px ; height: 80px" />
+		<p>{{blog.article}}</p>
+	</div>
+	{%endif%}
+{% endblock %}

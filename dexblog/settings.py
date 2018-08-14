@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['www.dexsite.com']
 
 INSTALLED_APPS = [
     'music.apps.MusicConfig',
+    'blog.apps.BlogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
