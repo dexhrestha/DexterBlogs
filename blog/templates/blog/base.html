@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 {% load staticfiles %}
+<link rel="icon" href="{% static 'blog/favicon.ico' %}">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <meta charset="utf-8">
@@ -14,6 +15,7 @@
 
 <!-- Bootstrap core CSS -->
 <link href="{% static 'blog/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet" />
+
 
 
 <!-- Custom styles for this template -->
@@ -42,6 +44,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class=""><a href="{%url 'blog:all_blogs' %}"><span class="glyphicon glyphicon-blog"></span>&nbsp;Blogs</a></li>
+        <li class=""><a href="{%url 'music:index' %}"><span class="glyphicon glyphicon-music"></span>&nbsp;My Music</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="Search" method="GET" action="#">
         <div class="form-group">
@@ -49,10 +52,7 @@
         </div>
         <button type="submit"><span class="glyphicon glyphicon-search"></span></button>
       </form>
-      <ul class="nav navbar-nav navbar-right">
-      		<li class=""><a href=""><span class="glyphicon glyphicon-plus"></span> Add Blogs</a></li>
-      		<li class=""><a href=""><span class="glyphicon glyphicon-off"></span> LogOut</a></li>
-      </ul>
+      
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

@@ -1,12 +1,17 @@
 from django.db import models
-
+from django.urls import reverse
+from django.contrib.auth.models import Permission,User
 # Create your models here.
 class Album(models.Model):
 	# id = models.Integer()
+	user = models.ForeignKey(User,default=1,on_delete=models.CASCADE)
 	artist = models.CharField(max_length=256)
 	album_title = models.CharField(max_length=512)
 	genre = models.CharField(max_length=64)
-	album_logo = models.CharField(max_length=1024)
+	album_logo = models.FileField()
+
+	def get_absolute_url(self):
+		return reverse('music:detail',kwargs={'pk':self.pk})
 
 	def __str__(self):
 		return self.album_title+' by '+self.artist
