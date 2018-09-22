@@ -1,11 +1,13 @@
 from django.views import generic
+from django.http import JsonResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth import authenticate,login,logout
 from .models import Album,Song
 from django.urls import reverse_lazy
-from .forms import UserForm,LoginForm
+from .forms import UserForm,LoginForm,SongForm
 from django.views.generic.base import View
+
 #Using generic/class
 '''class IndexView(generic.ListView):
 	template_name = 'music/index.html'
@@ -23,10 +25,14 @@ def index(request):
 		albums = Album.objects.filter(user=request.user)
 		return render(request,'music/index.html',{'all_albums':albums})
 
-class DetailView(generic.DetailView):
-	model = Album
-	template_name = 'music/details.html'
-		
+def detail(request,pk):
+	if not request.user.is_authenticated:
+		return render(request,'music/login.html')
+	else:
+		user = request.user
+		album = get_object_or_404(Album,pk=pk)
+		return render(request,'music/details.html',{'album':album,'user':user})
+
 class AlbumCreate(CreateView):
 	model = Album
 	fields=['artist','album_title','genre','album_logo']
@@ -38,6 +44,10 @@ class AlbumUpdate(UpdateView):
 class AlbumDelete(DeleteView):
 	model = Album
 	success_url = reverse_lazy('music:index')
+
+class SongCreate(CreateView):
+	model = Song
+	fields = ['album','file_type','song_title','is_favorite']
 
 class UserFormView(View):
 	form_class = UserForm
@@ -104,4 +114,40 @@ def logout_user(request):
 	logout(request)
 	return redirect('music:index')
 
+def create_song(request,pk):
+	form =  SongForm(request.POST or None,)
+	album = get_object_or_404(Album,pk=pk)
+	if form.is_valid():
+		albums_songs = album.song_set.all()
+		for s in albums_songs:
+			if s.song_title == form.cleaned_data.get("song_title"):
+				context={
+					'album':album,
+					'form':form,
+					'error_message': 'You already added that song',
+				}
+				return render(request,'music/song_form.html',context)
+		song = form.save(commit=False)
+		song.album = album
+		song.save()
 
+	return render(request,'music/song_form.html',{'album':album,'form':form})
+
+def delete_song(request,pk,song_id):
+	album = get_object_or_404(Album,pk=pk)
+	song = Song.objects.get(pk=song_id)
+	song.delete()
+	return render(request,'music/details.html',{'album':album})
+
+def favorite_song(request,song_id):
+	song = get_object_or_404(Song,pk=song_id)
+	try:
+		if song.is_favorite:
+			song.is_favorite = False
+		else:
+			song.is_favorite = True
+		song.save()
+	except (KeyError,Song.DoesNotExist):
+		return JsonResponse({'success':False})
+	else:
+		return JsonResponse({'success':True})

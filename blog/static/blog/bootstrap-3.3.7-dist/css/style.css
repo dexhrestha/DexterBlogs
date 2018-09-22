@@ -1,6 +1,6 @@
-body{
+body,html{
 	font-family: Roboto;
-	margin: 0;
+	margin: 0px;
 }
 
 .navbar{
@@ -9,4 +9,17 @@ body{
 
 .main{
 	margin: 10px;
+}
+
+#sl{
+	height: 90vh;
+	
+}
+#sl img{
+	max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: contain;
+    margin-left:30px;
+
 }

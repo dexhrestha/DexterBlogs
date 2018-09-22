@@ -6,5 +6,5 @@ app_name= 'blog'
 urlpatterns = [
     url(r'^$',views.top_blogs,name='index'), #define the homepage for this
     url(r'^blogs/$',views.blogs,name='all_blogs'),
-    url(r'^(?P<blog_id>[0-9]+)/',views.blog,name='blog')
+    url(r'^blog/(?P<blog_id>[0-9]+)/',views.blog,name='blog'),
 ]

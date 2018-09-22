@@ -19,3 +19,4 @@ def top_blogs(request):
 		top.append(blog)
 	content = {'top':top}
 	return render(request,'blog/index.html',content)
+

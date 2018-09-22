@@ -54,9 +54,9 @@
         <button type="submit"><span class="glyphicon glyphicon-search"></span></button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-          {%if user%}
+
           <li class=""><a href="{% url 'music:album_add'%}"><span class="glyphicon glyphicon-user"></span> Hi, {{user}}</a></li>
-          {%endif%}
+
       		<li class=""><a href="{% url 'music:album_add'%}"><span class="glyphicon glyphicon-plus"></span> Add Albums</a></li>
       		<li class=""><a href="{% url 'music:logout' %}"><span class="glyphicon glyphicon-off"></span> LogOut</a></li>
       </ul>
